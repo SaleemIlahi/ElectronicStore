@@ -1,0 +1,14 @@
+{
+  "name": "electronicstore",
+  "version": "1.0.0",
+  "description": "This is Electronic E-commerce website",
+  "main": "server/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mohamed Saleem",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.2"
+  }
+}
