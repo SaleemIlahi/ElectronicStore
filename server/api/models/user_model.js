@@ -44,6 +44,7 @@ const userSchema = new mongoose.Schema({
     }
 })
 
+// hashing password
 userSchema.pre('save', async function (next) {
     try {
         const salt = await bcrypt.genSalt(10)
@@ -54,5 +55,10 @@ userSchema.pre('save', async function (next) {
         next(error)
     }
 })
+
+// comparing hash password
+userSchema.methods.comparePassword = async function(password) {
+    return await bcrypt.compare(password,this.password)
+}
 
 exports.userModel = mongoose.model('user', userSchema)
