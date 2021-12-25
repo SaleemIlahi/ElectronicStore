@@ -2,6 +2,7 @@
 const mongoose = require('mongoose')
 const { isEmail } = require('validator')
 const bcrypt = require('bcrypt')
+const crypto = require('crypto')
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -38,6 +39,13 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: "user"
     },
+    emailToken: {
+        type: String
+    },
+    isVerified: {
+        type: Boolean,
+        default: false
+    },
     created: {
         type: Date,
         default: Date.now
@@ -50,6 +58,10 @@ userSchema.pre('save', async function (next) {
         const salt = await bcrypt.genSalt(10)
         const hashPassword = await bcrypt.hash(this.password, salt)
         this.password = hashPassword
+
+        const emailverificationtoken = crypto.randomBytes(64).toString('hex')
+        this.emailToken = emailverificationtoken
+
         next()
     } catch (error) {
         next(error)
