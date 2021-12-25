@@ -4,6 +4,7 @@ const dotenv = require('dotenv')
 const { connectDB } = require('./api/db/connectdb.js')
 const userRouter = require('./api/routes/user_routes.js')
 const { errorHandler } = require('./api/middlewares/errorHandler.js')
+const cookieParser = require('cookie-parser')
 
 const app = express()
 
@@ -11,6 +12,7 @@ const app = express()
 dotenv.config({ path: 'server/config/config.env' })
 
 app.use(express.json())
+app.use(cookieParser())
 
 // Connecting Databse
 connectDB()
