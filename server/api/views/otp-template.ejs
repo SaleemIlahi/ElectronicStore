@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;600&display=swap');
+
+        body {
+            width: 100%;
+            font-family: 'Fira Sans', sans-serif;
+        }
+
+        .mail-box {
+            width: 75%;
+            border: 2px solid #D1D9D9;
+            border-radius: 10px;
+            padding: 20px;
+            margin: auto;
+        }
+
+        .mail-box img {
+            width: 80px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="mail-box">
+        <img src="https://res.cloudinary.com/do63p55lo/image/upload/v1640877835/ElectonicStore/logo/5ea2f7b456d73100123c6028_w7fxqe.png" alt="logo" />
+        <h3>Hi! <%= name %></h3>
+        <p>
+            We are sharing a verification code to reset your password. The code is valid for 10 minutes and usable only once.<br />
+            Once you have verified the code, you'll be prompted to set a new password immediately. This is to ensure that only you have access to your account.
+        </p>
+
+        <span>Your OTP: <strong><%= otp %></strong></span> <br />
+        <span>Expires in: <strong>10 minutes</strong></span>
+
+        <h4>Team ElectronicStore</h4>
+    </div>
+</body>
+
+</html>

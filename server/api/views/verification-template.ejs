@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300;400;600&display=swap');
+
+        body {
+            width: 100%;
+            font-family: 'Fira Sans', sans-serif;
+        }
+
+        .mail-box {
+            width: 350px;
+            border: 2px solid #D1D9D9;
+            text-align: center;
+            border-radius: 10px;
+            padding-bottom: 60px;
+            margin: auto;
+        }
+
+        .mail-box h3 {
+            font-weight: 400;
+            padding: 0 15px;
+        }
+
+        .mail-box .bg-img {
+            width: 100%;
+        }
+
+        .mail-box .mail-icon {
+            width: 64px;
+            height: 64px;
+            display: block;
+            margin: auto;
+            margin-top: 100px;
+            margin-bottom: 40px;
+        }
+
+        .mail-box .btn-verify {
+            text-decoration: none;
+            color: #fff;
+            background: #1A73E8;
+            padding: 12px;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="mail-box">
+        <img src="https://res.cloudinary.com/do63p55lo/image/upload/v1640519882/ElectonicStore/email/bg-1_hmmhpi.png" alt="Welcome to ElectronicStore" class="bg-img" />
+        <h1>Hi, <%= name %></h1>
+        <h3>Welcome to ElectronicStore.<br />Thankyou for Registering on ElectonicStore.</h3>
+
+        <img src="https://res.cloudinary.com/do63p55lo/image/upload/v1640519899/ElectonicStore/email/mail-icon_af7ymy.png"
+            alt="mail-icon" class="mail-icon" />
+        <h3>To access more products and services verify your Email.</h3>
+        <a href='http://<%= host %>/api/v1/verify-email/<%= token %>/<%= expireToken %>' class="btn-verify">Verify your email</a>
+    </div>
+</body>
+
+</html>
