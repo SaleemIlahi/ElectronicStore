@@ -3,7 +3,8 @@ const express = require('express')
 const router = express.Router()
 const userController = require('../controllers/user_controller.js')
 const { userAuth } = require('../middlewares/userAuth.js')
-// const { verifyMailID } = require('../helpers/verify_mail_id.js')
+const { verifyMails } = require('../services/email-service.js')
+const {otpEmail, verifyOTP} = require('../services/otp-service.js')
 
 router.post('/api/v1/register', userController.register)
 router.post('/api/v1/login', userController.login)
@@ -13,7 +14,10 @@ router.get('/api/v1/home', userAuth, (req, res) => {
         user
     })
 })
-// router.get('/api/v1/verify-email',verifyMailID)
+router.get('/api/v1/verify-email/:emailToken/:expireToken',verifyMails)
+router.post('/api/v1/resend-mail',userController.resenMail)
+router.post('/api/v1/opt-service',otpEmail)
+router.post('/api/v1/verify-otp',verifyOTP)
 
 
 module.exports = router

@@ -14,6 +14,9 @@ dotenv.config({ path: 'server/config/config.env' })
 app.use(express.json())
 app.use(cookieParser())
 
+// Setup the template Engine to use
+app.set('view engine','ejs')
+
 // Connecting Databse
 connectDB()
 
