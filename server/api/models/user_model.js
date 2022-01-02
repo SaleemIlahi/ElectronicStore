@@ -46,6 +46,10 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    otp: {
+        type: String,
+        default: null
+    },
     created: {
         type: Date,
         default: Date.now
