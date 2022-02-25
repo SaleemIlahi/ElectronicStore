@@ -1,0 +1,50 @@
+
+.navbar{
+    background: var(--grey-color);
+}
+
+.navbar span{
+    font-size: .9rem;
+    text-align: center;
+    font-weight: bold;
+}
+
+.input-group{
+    width: 50%;
+    height: 50px;
+}
+.search-input:focus{
+    box-shadow: none;
+    border: none;
+}
+.search-btn{
+    background: var(--blue-color);
+}
+.search-btn:hover{
+    background: var(--blue-color);
+}
+.search-btn:focus{
+    background: var(--blue-color);
+    box-shadow: none;
+    border: none;
+}
+
+.btn-link{
+    width: 100px;
+    height: 40px;
+    color: var(--grey-color);
+}
+.btn-link:hover{
+    color: var(--grey-color);
+}
+
+.btn-login{   
+    background: var(--green-color);
+}
+.btn-cart{
+    background: var(--blue-color);
+}
+
+img{
+    width: 120px;
+}
