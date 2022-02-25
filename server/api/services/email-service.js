@@ -98,7 +98,8 @@ const verifyMails = async (req, res, next) => {
         await userModel.updateOne({ emailToken: token }, updateToken)
 
         res.status(200).json({
-            message: 'Email Verified',
+            errorStatus: true,
+            message: 'Your Email is Verified',
         })
 
     } catch (error) {

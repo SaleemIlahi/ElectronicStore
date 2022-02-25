@@ -3,10 +3,14 @@ const express = require('express')
 const dotenv = require('dotenv')
 const { connectDB } = require('./api/db/connectdb.js')
 const userRouter = require('./api/routes/user_routes.js')
+const productRouter = require('./api/routes/product_routes.js')
 const { errorHandler } = require('./api/middlewares/errorHandler.js')
 const cookieParser = require('cookie-parser')
+const cors = require('cors')
 
 const app = express()
+
+app.use(cors())
 
 // .env config
 dotenv.config({ path: 'server/config/config.env' })
@@ -22,6 +26,7 @@ connectDB()
 
 // loading user Router
 app.use('/',userRouter)
+app.use('/',productRouter)
 app.use(errorHandler)
 
 

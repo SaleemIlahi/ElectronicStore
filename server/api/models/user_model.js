@@ -1,28 +1,20 @@
 
 const mongoose = require('mongoose')
-const { isEmail } = require('validator')
 const bcrypt = require('bcrypt')
 const crypto = require('crypto')
 
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
-        require: [true, 'Username is required'],
-        trim: true,
-        minlength: [3,'Username must contain atleast 3 character'],
-        maxlength: [50, 'Username cannot exceed more 50 character']
+        required: true,
     },
     email: {
         type: String,
-        validate: [isEmail,'Enter a valid Email address'],
-        required: [true, 'Email is required'],
-        unique: [true, 'Email already Registered'],
-        lowercase: [true,'Enter email in lowercase']
+        required: true,
     },
     password: {
         type: String,
-        required: [true, 'Password is required'],
-        minlength: [8, 'minimum length should be atleast 8 character'],
+        required: true,
         select: false
     },
     avatar: [{
@@ -74,7 +66,7 @@ userSchema.pre('save', async function (next) {
 
 // comparing hash password
 userSchema.methods.comparePassword = async function(password) {
-    return await bcrypt.compare(password,this.password)
+    return bcrypt.compare(password,this.password)
 }
 
 exports.userModel = mongoose.model('user', userSchema)

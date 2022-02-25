@@ -17,9 +17,11 @@ const otpEmail = async (req, res, next) => {
     try {
         const { email } = req.body
 
+        if(!email) throw next(createError.Unauthorized('Email is not allowed to be empty'))
+
         const user = await userModel.findOne({ email })
 
-        if (!user) throw next(createError.Unauthorized('Your are not Registered'))
+        if (!user) throw next(createError.Unauthorized('Email is not Registered'))
 
         // generating OTP
         const otp = crypto.randomInt(100000, 999999)
@@ -34,6 +36,7 @@ const otpEmail = async (req, res, next) => {
         optMail(user, otp)
 
         res.json({
+            success: true,
             expiresIn,
             hash
         })
@@ -47,8 +50,8 @@ const verifyOTP = async (req, res, next) => {
     try {
         const { otp, email, password } = req.body
 
-        if (!otp) throw next(createError.Unauthorized('Enter OTP sent you'))
-        if (!password) throw next(createError.Unauthorized('Enter password'))
+        if (!otp) throw next(createError.Unauthorized('OTP is not allowed to be empty'))
+        if (!password) throw next(createError.Unauthorized('Password is not allowed to be empty'))
 
         const user = await userModel.findOne({ email })
 

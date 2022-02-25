@@ -3,17 +3,20 @@ const { userModel } = require('../models/user_model.js')
 const createError = require('http-errors')
 const { signAccessToken } = require('../helpers/jwt_token.js')
 const { sendMails } = require('../services/email-service.js')
+const schema = require('../validator/userValidator.js')
 
 class userController {
     static register = async (req, res, next) => {
         try {
             const { email } = req.body
 
+            await schema.validateAsync(req.body)
+
             // checking email already registered or not
             const isRegistered = await userModel.findOne({ email })
 
             // throw error on email registered
-            if (isRegistered) throw next(createError.Conflict('Email Already Registered'))
+            if (isRegistered) throw next(createError.Conflict('Email is Already Registered'))
 
             // saving user data
             const user = new userModel(req.body)
@@ -24,6 +27,7 @@ class userController {
             if (!mails) throw next(createError.Unauthorized())
 
             res.status(201).json({
+                success: true,
                 message: `Email sent your ${data.email}. Verify you Email`
             })
         } catch (error) {
@@ -35,13 +39,14 @@ class userController {
         try {
             const { email, password } = req.body
 
-            if (!email || !password) throw next(createError.BadRequest('Fill all fields properly'))
-
+            if (!email) throw next(createError.BadRequest('Email field is not allowed to be empty'))
+            
             const isMatch = await userModel.findOne({ email }).select('+password')
-            if (!isMatch) throw next(createError.Unauthorized('Invalid Email or Password'))
-
-            if (!isMatch.comparePassword(password)) throw next(createError.Unauthorized('Invalid Email or Password'))
-
+            if (!isMatch) throw next(createError.Unauthorized('Email or Password is Invalid'))
+            
+            if (!password) throw next(createError.BadRequest('Password field is not allowed to be empty'))
+            if (!isMatch.comparePassword(password)) throw next(createError.Unauthorized('Email or Password is Invalid'))
+            
             if (!isMatch.isVerified) throw next(createError.Unauthorized('Email is not verified'))
 
             const accessToken = signAccessToken(isMatch)
@@ -63,14 +68,17 @@ class userController {
         try {
 
             const { email } = req.body
+
+            if(!email) throw next(createError.NotFound('Email is not allowed to be empty'))
+            
             const user = await userModel.findOne({ email })
 
-            if(!user) throw next(createError.NotFound('Your are not Registered'))
+            if(!user) throw next(createError.NotFound('Email is not Registered'))
 
             await sendMails(user, req.headers.host)
 
             res.json({
-                message: 'email sent'
+                message: `Email sent your ${email}. Verify you Email`
             })
 
         } catch (error) {

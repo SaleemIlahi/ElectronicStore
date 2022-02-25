@@ -5,9 +5,8 @@ exports.errorHandler = (err,req,res,next) => {
     const codeMessage =  err.message || 'Internal Server Error'
     
     res.status(codeStatus).json({
-        error: {
-            status: codeStatus,
-            message: codeMessage,
-        }
+        success: false,
+        status: codeStatus,
+        message: codeMessage
     })
 }
