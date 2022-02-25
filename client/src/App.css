@@ -1,0 +1,130 @@
+
+/* Login, Register Form */
+
+.alert{
+    width: 300px;
+    z-index: 1000;
+    margin: 20px;
+    text-align: center;
+}
+
+.form-container{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    z-index: 100;
+}
+
+.x-icon{
+    color: var(--black-color);
+    cursor: pointer;
+    font-size: 1.5rem;
+    position: absolute;
+    top: 10px;
+    right: -50px;
+}
+
+.form-box{
+    width: 50%;
+    box-shadow: 12px 12px 12px rgba(0,0,0,0.3);
+    position: relative;
+}
+
+.form-left-box{
+    text-align: center;
+    background: #ADD8E6;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+
+.form-text{
+    color: var(--black-color);
+}
+
+.form-right-box{
+    padding: 30px;
+    background: var(--grey-color);
+}
+
+form span{
+    display: block;
+    font-size: .75rem;
+    font-weight: 600;
+    text-align: end;
+}
+
+.form-label{
+    font-weight: 600;
+}
+.form-input{
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: 1px solid var(--black-color);
+    border-radius: 0;
+}
+
+.resen-mail{
+    color: var(--blue-color);
+    font-size: .9rem;
+    cursor: pointer;
+}
+
+.redBorder{
+    border-bottom: 2px solid var(--red-color);
+}
+
+.form-input:focus{
+    border-bottom: 1px solid var(--black-color);
+    box-shadow: none;
+}
+
+.form-btn,
+.button{
+    /* width: 120px; */
+    height: 50px;
+    background: var(--blue-color);
+    color: var(--grey-color);
+    font-weight: 600;
+    border: none;
+    font-size: 1.2rem;
+}
+
+.form-btn:focus,
+.button:focus{
+    background: var(--blue-color);
+    box-shadow: none;
+    border: none;
+}
+.form-btn:hover,
+.button:hover{
+    background: var(--blue-color);
+    color: var(--grey-color);
+}
+
+.nav-links{
+    font-weight: 600;
+    font-size: .9rem;
+    margin-top: 60px;
+}
+
+.verify-email{
+    width: 200px;
+    height: 50px;
+    background-color: var(--white-color);
+    border: none;
+    color: var(--blue-color);
+    font-weight: 600;
+    box-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+}
+.verify-email:hover{
+    background-color: var(--white-color);
+    color: var(--blue-color);
+}

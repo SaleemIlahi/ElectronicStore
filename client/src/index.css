@@ -1,0 +1,17 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700;800&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'Exo 2', sans-serif;
+}
+
+:root{
+    --blue-color: #2B6777;
+    --green-color: #52AB98;
+    --red-color: #FF8066;
+    --grey-color: #f2f2f2;
+    --white-color: #ffffff;
+    --black-color: #000000;
+}
