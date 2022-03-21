@@ -8,12 +8,15 @@ const {otpEmail, verifyOTP} = require('../services/otp-service.js')
 
 router.post('/api/v1/register', userController.register)
 router.post('/api/v1/login', userController.login)
-router.get('/api/v1/home', userAuth, (req, res) => {
+router.get('/api/v1/auth', userAuth, (req, res) => {
     const user = req.user
     res.json({
-        user
+        email: user.email,
+        name: user.name,
+        success: true
     })
 })
+router.get('/api/v1/logout',userController.logout)
 router.get('/api/v1/verify-email/:emailToken/:expireToken',verifyMails)
 router.post('/api/v1/resend-mail',userController.resenMail)
 router.post('/api/v1/opt-service',otpEmail)

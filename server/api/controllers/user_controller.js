@@ -4,6 +4,7 @@ const createError = require('http-errors')
 const { signAccessToken } = require('../helpers/jwt_token.js')
 const { sendMails } = require('../services/email-service.js')
 const schema = require('../validator/userValidator.js')
+const bcrypt = require('bcrypt')
 
 class userController {
     static register = async (req, res, next) => {
@@ -45,7 +46,8 @@ class userController {
             if (!isMatch) throw next(createError.Unauthorized('Email or Password is Invalid'))
             
             if (!password) throw next(createError.BadRequest('Password field is not allowed to be empty'))
-            if (!isMatch.comparePassword(password)) throw next(createError.Unauthorized('Email or Password is Invalid'))
+            const comparePassword = await bcrypt.compare(password,isMatch.password)
+            if (!comparePassword) throw next(createError.Unauthorized('Email or Password is Invalid'))
             
             if (!isMatch.isVerified) throw next(createError.Unauthorized('Email is not verified'))
 
@@ -57,7 +59,22 @@ class userController {
             })
 
             res.status(201).json({
-                message: 'Login Successfully'
+                message: 'Login Successfully',
+                success: true,
+            })
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    static logout = async (req, res, next) => {
+        try {
+            
+            res.clearCookie('jwt')
+
+            res.status(201).json({
+                message: 'Logout Successfully',
+                success: false
             })
         } catch (error) {
             next(error)
