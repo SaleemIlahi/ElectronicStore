@@ -1,0 +1,17 @@
+
+.carousel-item:hover{
+    cursor: pointer;
+}
+
+.carousel-control-prev,
+.carousel-control-next{
+    width: 50px;
+    height: 50px;
+    margin: auto 50px;
+    background-color: var(--green-color);
+    border-radius: 50%;
+}
+
+.carousel-indicators [data-bs-target]{
+    background-color: var(--green-color);
+}
