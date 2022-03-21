@@ -1,10 +1,13 @@
+import {useContext} from 'react'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import { BsXLg } from 'react-icons/bs'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import {context} from '../../App.js'
 
 const Login = () => {
 
+    const {dispatch} = useContext(context)
     const navigate = useNavigate()
 
     const userData = {
@@ -38,7 +41,10 @@ const Login = () => {
 
             if (!data.success) throw data
 
-            setUser(userData)
+            localStorage.setItem('isLogin',true)
+
+            dispatch({type: 'login', payload: data.success})
+            navigate('/')
         } catch (error) {
             errorHandler(error)
         }
