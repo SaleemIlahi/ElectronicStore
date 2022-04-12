@@ -1,13 +1,13 @@
-import {useContext} from 'react'
+import { useContext } from 'react'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import { BsXLg } from 'react-icons/bs'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import {context} from '../../App.js'
+import { context } from '../../Context/Context.jsx'
 
 const Login = () => {
 
-    const {dispatch} = useContext(context)
+    const { dispatch } = useContext(context)
     const navigate = useNavigate()
 
     const userData = {
@@ -41,9 +41,7 @@ const Login = () => {
 
             if (!data.success) throw data
 
-            localStorage.setItem('isLogin',true)
-
-            dispatch({type: 'login', payload: data.success})
+            dispatch({ type: 'login', userDetail: {email: data.email, name: data.name} })
             navigate('/')
         } catch (error) {
             errorHandler(error)
@@ -76,7 +74,27 @@ const Login = () => {
 
             if (!data.success) throw data
 
-            navigate('/resend', {state: { userEmail: user.email }})
+            navigate('/resend', { state: { userEmail: user.email } })
+        } catch (error) {
+            errorHandler(error)
+        }
+    }
+
+    const resendMail = async () => {
+        try {
+            const response = await fetch('/api/v1/resend-mail', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(user)
+            })
+
+            const data = await response.json()
+
+            if (!data.success) throw data
+
+            // navigate('/resend', {state: { userEmail: user.email }})
         } catch (error) {
             errorHandler(error)
         }
@@ -104,18 +122,19 @@ const Login = () => {
                             <span className='text-danger'></span>
                         </Form.Group>
 
+                        <h6 className='text-primary text-decoration-underline text-end' style={{ cursor: 'pointer' }} onClick={resendMail}>Email verify?</h6>
 
                         <Form.Group className="mb-3">
                             <Form.Label>Password</Form.Label>
                             <Form.Control type="password" placeholder="Enter Password" name='password' value={user.password} className='form-input bg-transparent px-0 py-2' onChange={handleChange} />
                             <span className='text-danger'></span>
                         </Form.Group>
-                            
+
                         <Button type="submit" className='form-btn'>Login</Button>
                     </Form>
 
                     <div className="nav-links d-flex justify-content-between">
-                        <span className='text-primary text-decoration-underline' style={{cursor: 'pointer'}} onClick={forgotPass}>Password Forgot?</span>
+                        <span className='text-primary text-decoration-underline' style={{ cursor: 'pointer' }} onClick={forgotPass}>Password Forgot?</span>
                         <Link className='text-primary' to='/register'>Create New Account</Link>
                     </div>
                 </Col>

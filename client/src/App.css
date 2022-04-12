@@ -128,3 +128,20 @@ form span{
     background-color: var(--white-color);
     color: var(--blue-color);
 }
+
+
+/* Cart Table UI */
+
+tr th p{
+    margin-top: 20px;
+}
+
+tr th svg{
+    margin-top: 25px;
+    cursor: pointer;
+}
+
+tr th img{
+    width: 70px;
+    object-fit: cover;
+}

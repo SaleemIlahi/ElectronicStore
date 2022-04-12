@@ -1,22 +1,28 @@
 
-.cont{
+.outer-container{
+    height: 268px;
     position: relative;
-    overflow-x: hidden;
+    overflow-y: hidden;
+    overflow-x: auto;
+}
+
+.outer-container::-webkit-scrollbar{
+    display: none;
 }
 
 .card-container{
     width: 2100px;
     display: flex;
     justify-content: space-evenly;
-    transition: all 0.5s ease-in-out;
 }
 
-.container-fluid:hover h2{
-    margin-left: 50px;
+.outer-container h2{
+    position: sticky;
+    left: 0;
 }
 
-.container-fluid:hover .card-prev,
-.container-fluid:hover .card-next{
+.outer-container:hover .card-prev,
+.outer-container:hover .card-next{
     display: flex;
 }
 
@@ -37,25 +43,24 @@
 
 .card-prev,
 .card-next{
+    position: sticky;
+    bottom: 15px;
     width: 50px;
-    height: 100%;
-    position: absolute;
-    top: 0;
+    height: 80%;
     cursor: pointer;
-    background: var(--blue-color);
-    opacity: 0.4;
-    color: var(--white-color);
+    color: var(--black-color);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1.6rem;
     display: none;
+    border: 2px solid #000;
 }
 
 .card-prev{
-    left: 0;
+    left: 10px;
 }
 
 .card-next{
-    right: 0;
+    left: 1440px;
 }

@@ -10,15 +10,15 @@ const Row = (props) => {
     const [product, setProduct] = useState([])
 
     const handleClick = (e) => {
-        const outerContainer = document.querySelector('.container-fluid')
+        const outerContainer = document.querySelector('.outer-container')
         const innerContainer = document.querySelector(`#${props.ctg}`)
 
-        const sliderWidth = outerContainer.offsetWidth -innerContainer.offsetWidth
+        const sliderWidth = innerContainer.offsetWidth - outerContainer.offsetWidth
 
-        if (e.target.className === "card-next") {
-            innerContainer.style.transform = `translateX(${sliderWidth}px)`
-        } else if (e.target.className === "card-prev") {
-            innerContainer.style.transform = 'translateX(0px)'
+        if (e.target.className === "card-next" || e.target.parentElement.className === "card-next") {
+            innerContainer.parentElement.scrollLeft = sliderWidth
+        } else if (e.target.className === "card-prev" || e.target.parentElement.className === "card-prev") {
+            innerContainer.parentElement.scrollLeft = -sliderWidth
         }
     }
 
@@ -44,13 +44,13 @@ const Row = (props) => {
     })
 
     return (
-        <Container fluid className='my-4 cont'>
+        <Container fluid className='my-4 outer-container'>
             <h2 className='text-black'>{props.title}</h2>
             <div className="card-container" id={props.ctg}>
                 {
                     product.map((item, i) => {
                         return (
-                            <Link to="/product" state={item} key={i}>
+                            <Link to={`/product/${item.title}/${item.category}`} state={item} key={i}>
                                 <Card>
                                     <Card.Img variant='top' src={item.url[0]} />
                                 </Card>
@@ -59,8 +59,6 @@ const Row = (props) => {
                     })
                 }
             </div>
-
-
 
             <div className="card-prev" onClick={handleClick}>
                 <BsChevronCompactLeft />

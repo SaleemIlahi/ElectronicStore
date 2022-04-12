@@ -1,11 +1,14 @@
-
+import { useContext } from 'react'
+import { Link } from 'react-router-dom'
 import { useLocation } from "react-router-dom"
 import { Container, Col, Row } from "react-bootstrap"
 import Navbar from "../Navbar/Navbar.jsx";
 import Rows from "../Row/Row.jsx";
 import "./page.css"
+import { cartContext } from '../../Context/CartContext.jsx'
 
 const ProductPage = () => {
+  const { cartDispatch } = useContext(cartContext)
   const location = useLocation()
 
   const productDetail = location.state
@@ -16,6 +19,10 @@ const ProductPage = () => {
     img.src = imgURL
   }
 
+  const addToCart = () => {
+    cartDispatch({ type: 'ADD_TO_CART', cartItem: { id: productDetail._id, title: productDetail.title, img: productDetail.url[0], price: productDetail.price } })
+  }
+
   return (
     <>
       <Navbar />
@@ -23,13 +30,17 @@ const ProductPage = () => {
         {
           productDetail && (
             <Row>
-              <Col md="5 d-flex justify-content-center">
+              <Col md="5">
                 <div className="product">
                   <div className="product-img mb-3">
                     <img className="mt-3" src={productDetail.url[0]} alt="img" />
                   </div>
                   <div className="product-btn">
-                    <button>Add to Cart</button>
+                    <Link to="/cart" onClick={addToCart}>
+                      <button>
+                        Add to Cart
+                      </button>
+                    </Link>
                     <button>Buy Now</button>
                   </div>
                 </div>
@@ -48,13 +59,15 @@ const ProductPage = () => {
 
                   <div className="border border-black spec">
                     <h4>Specfication</h4>
-                    {
-                      productDetail.description.split('. ').map(a => {
-                        return (
-                          <li>{a}</li>
-                        )
-                      })
-                    }
+                    <ul>
+                      {
+                        productDetail.description.split('. ').map((a, i) => {
+                          return (
+                            <li key={i}>{a}</li>
+                          )
+                        })
+                      }
+                    </ul>
                   </div>
                 </div>
               </Col>
@@ -62,7 +75,7 @@ const ProductPage = () => {
           )
         }
       </Container>
-      {productDetail && <Rows title="Recommended" ctg={productDetail.category} />}
+      {productDetail && <Rows title="Recommended" ctg={productDetail.category} skp={5} />}
     </>
   )
 }
