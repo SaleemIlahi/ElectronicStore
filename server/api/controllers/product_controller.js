@@ -117,8 +117,8 @@ class productController {
         try {
 
             const productCategory = req.params.ctg
-
-            const product = await productModel.find({category: productCategory})
+            
+            const product = await productModel.find({category: productCategory}).limit(10)        
 
             res.status(201).json({
                 product

@@ -58,10 +58,8 @@
         <h1>Hi, <%= name %></h1>
         <h3>Welcome to ElectronicStore.<br />Thankyou for Registering on ElectonicStore.</h3>
 
-        <img src="https://res.cloudinary.com/do63p55lo/image/upload/v1640519899/ElectonicStore/email/mail-icon_af7ymy.png"
-            alt="mail-icon" class="mail-icon" />
+        <img src="https://res.cloudinary.com/do63p55lo/image/upload/v1640519899/ElectonicStore/email/mail-icon_af7ymy.png" alt="mail-icon" class="mail-icon" />
         <h3>To access more products and services verify your Email.</h3>
-        <!-- <a href='http://<%= host %>/api/v1/verify-email/<%= token %>/<%= expireToken %>' class="btn-verify">Verify your email</a> -->
         <a href='http://localhost:3000/verifyEmail/<%= token %>/<%= expireToken %>/<%= name %>' class="btn-verify">Verify your email</a>
     </div>
 </body>

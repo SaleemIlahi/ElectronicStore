@@ -31,7 +31,7 @@ const emailOAuth2 = async () => {
     return transporter
 }
 
-async function sendMails(user, host) {
+async function sendMails(user) {
 
     const transporter = await emailOAuth2()
 
@@ -41,11 +41,10 @@ async function sendMails(user, host) {
     }
 
     const expireToken = jwt.sign(playoad, process.env.JWT_ACCESS_TOKEN, { expiresIn: '10m' })
-
+   
     const data = await ejs.renderFile(process.cwd() + "\\server\\api\\views\\verification-template.ejs", {
         name: user.name,
         token: user.emailToken,
-        host,
         expireToken
     })
 
@@ -57,7 +56,7 @@ async function sendMails(user, host) {
     }
 
     const mailsent = transporter.sendMail(mailOptions)
-
+    
     return mailsent
 }
 

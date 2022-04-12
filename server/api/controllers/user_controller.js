@@ -11,7 +11,7 @@ class userController {
         try {
             const { email } = req.body
 
-            await schema.validateAsync(req.body)
+            const a = await schema.validateAsync(req.body)
 
             // checking email already registered or not
             const isRegistered = await userModel.findOne({ email })
@@ -23,7 +23,7 @@ class userController {
             const user = new userModel(req.body)
             const data = await user.save()
 
-            const mails = await sendMails(data, req.headers.host)
+            const mails = await sendMails(data)
 
             if (!mails) throw next(createError.Unauthorized())
 
@@ -41,14 +41,14 @@ class userController {
             const { email, password } = req.body
 
             if (!email) throw next(createError.BadRequest('Email field is not allowed to be empty'))
-            
+
             const isMatch = await userModel.findOne({ email }).select('+password')
             if (!isMatch) throw next(createError.Unauthorized('Email or Password is Invalid'))
-            
+
             if (!password) throw next(createError.BadRequest('Password field is not allowed to be empty'))
-            const comparePassword = await bcrypt.compare(password,isMatch.password)
+            const comparePassword = await bcrypt.compare(password, isMatch.password)
             if (!comparePassword) throw next(createError.Unauthorized('Email or Password is Invalid'))
-            
+
             if (!isMatch.isVerified) throw next(createError.Unauthorized('Email is not verified'))
 
             const accessToken = signAccessToken(isMatch)
@@ -60,6 +60,8 @@ class userController {
 
             res.status(201).json({
                 message: 'Login Successfully',
+                email: isMatch.email,
+                name: isMatch.name,
                 success: true,
             })
         } catch (error) {
@@ -69,7 +71,7 @@ class userController {
 
     static logout = async (req, res, next) => {
         try {
-            
+
             res.clearCookie('jwt')
 
             res.status(201).json({
@@ -86,13 +88,13 @@ class userController {
 
             const { email } = req.body
 
-            if(!email) throw next(createError.NotFound('Email is not allowed to be empty'))
-            
+            if (!email) throw next(createError.NotFound('Email is not allowed to be empty'))
+
             const user = await userModel.findOne({ email })
 
-            if(!user) throw next(createError.NotFound('Email is not Registered'))
+            if (!user) throw next(createError.NotFound('Email is not Registered'))
 
-            await sendMails(user, req.headers.host)
+            await sendMails(user)
 
             res.json({
                 message: `Email sent your ${email}. Verify you Email`

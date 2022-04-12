@@ -4,7 +4,7 @@
   "description": "This is Electronic E-commerce website",
   "main": "server/app.js",
   "scripts": {
-    "start":"node server/app.js",
+    "start": "node server/app.js",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "author": "Mohamed Saleem",
@@ -21,6 +21,7 @@
     "joi": "^17.6.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.1.2",
-    "nodemailer": "^6.7.2"
+    "nodemailer": "^6.7.2",
+    "stripe": "^8.216.0"
   }
 }
