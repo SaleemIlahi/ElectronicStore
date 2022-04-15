@@ -31,7 +31,7 @@ const emailOAuth2 = async () => {
     return transporter
 }
 
-async function sendMails(user) {
+async function sendMails(user,req) {
 
     const transporter = await emailOAuth2()
 
@@ -45,8 +45,14 @@ async function sendMails(user) {
     const data = await ejs.renderFile(process.cwd() + "\\server\\api\\views\\verification-template.ejs", {
         name: user.name,
         token: user.emailToken,
-        expireToken
+        expireToken,
+        proto: req.protocol,
+        host: req.get("host")
     })
+
+    console.log(req.protocol)
+
+    console.log(req.get("host"))
 
     const mailOptions = {
         from: 'Electronic Store <process.env.USER>',

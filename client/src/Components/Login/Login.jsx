@@ -41,7 +41,7 @@ const Login = () => {
 
             if (!data.success) throw data
 
-            dispatch({ type: 'login', userDetail: {email: data.email, name: data.name} })
+            dispatch({ type: 'login', payload: true })
             navigate('/')
         } catch (error) {
             errorHandler(error)

@@ -11,7 +11,7 @@ class userController {
         try {
             const { email } = req.body
 
-            const a = await schema.validateAsync(req.body)
+            await schema.validateAsync(req.body)
 
             // checking email already registered or not
             const isRegistered = await userModel.findOne({ email })
@@ -23,7 +23,7 @@ class userController {
             const user = new userModel(req.body)
             const data = await user.save()
 
-            const mails = await sendMails(data)
+            const mails = await sendMails(data,req)
 
             if (!mails) throw next(createError.Unauthorized())
 
@@ -55,7 +55,9 @@ class userController {
 
             res.cookie('jwt', accessToken, {
                 expires: new Date(Date.now() + 60 * 60 * 1000),
-                httpOnly: true
+                httpOnly: true,
+                sameSite: 'None', 
+                secure: true
             })
 
             res.status(201).json({
