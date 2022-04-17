@@ -1,7 +1,7 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Navbar, Nav, Container, InputGroup, FormControl, Button } from 'react-bootstrap'
 import { BsFillCartFill } from "react-icons/bs";
-import { Link } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
 import './navbar.css'
 import { context } from '../../Context/Context.jsx'
 import { cartContext } from '../../Context/CartContext.jsx'
@@ -9,8 +9,24 @@ import { cartContext } from '../../Context/CartContext.jsx'
 const AppNavbar = () => {
 
     const { state, dispatch } = useContext(context)
-    console.log(state)
     const { cartState: { totalItem } } = useContext(cartContext)
+
+    const navigate = useNavigate()
+    const [search,setSearch] = useState()
+
+    const handleSearch = async () => {
+        const response = await fetch(`/api/v1/search?q=${search}`)
+        const data = await response.json()
+
+        if(data.product.length === 0){
+            console.log("not data")
+        }else{
+            navigate('/search',{
+                state: data.product
+            })
+        }
+
+    }
 
     const logout = async () => {
         const response = await fetch('/api/v1/logout');
@@ -43,8 +59,8 @@ const AppNavbar = () => {
                     </Link>
                 </Navbar.Brand>
                 <InputGroup className='input-group'>
-                    <FormControl placeholder="Search product" className='search-input' />
-                    <Button className='search-btn'>Search</Button>
+                    <FormControl placeholder="Search product" className='search-input' value={search} onChange={e => setSearch(e.target.value)} />
+                    <Button className='search-btn' onClick={handleSearch}>Search</Button>
                 </InputGroup>
                 <Nav>
                     {

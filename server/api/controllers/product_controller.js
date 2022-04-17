@@ -54,41 +54,16 @@ class productController {
             
             const productName = req.query.q
             const keywords = {
-                name: {
+                title: {
                     $regex: productName,
                     $options: "i"
                 }
             }
             
-            if(!productName) throw next(createError.NotFound())
-
             const product = await productModel.find(keywords)
             
             res.json({
                 product
-            })
-
-
-        } catch (error) {
-            next(error)
-        }
-    }
-
-    static filterProduct = async (req,res,next) => {
-        try {
-            
-            const productPrice = req.query.q
-                    
-            // if(!productName) throw next(createError.NotFound('Fill search fields'))
-
-            const product = await productModel.find()
-            
-            const filterPrice = product.filter(product => Number(product.price) < Number(productPrice))
-            const fillterBrand = product.filter(product => product.company == productPrice)
-            
-            res.json({
-                filterPrice,
-                fillterBrand
             })
 
 

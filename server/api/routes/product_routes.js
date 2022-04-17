@@ -10,7 +10,6 @@ router.post('/api/v1/deleteProduct/:id',productController.deleteProduct)
 router.get('/api/v1/getProductByCategory/:ctg',productController.getProductByCategory)
 router.get('/api/v1/getProductByID',productController.getProductByID)
 router.get('/api/v1/search',productController.searchProduct)
-router.get('/api/v1/filter',productController.filterProduct)
 router.post('/api/v1/checkout',payment)
 
 
