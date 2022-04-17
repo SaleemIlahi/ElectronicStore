@@ -8,6 +8,7 @@ import Verify from './Components/Verification/Verify.jsx';
 import ProductPage from './Components/productPage/productPage.jsx';
 import Cart from './Components/Cart/Cart.jsx'
 import Payment from './Components/Payment/Payment.jsx'
+import SearchProduct from './Components/SearchProduct/SerachProduct.jsx';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { context } from './Context/Context.jsx'
 
@@ -27,6 +28,7 @@ function App() {
             <Route path="verifyEmail/:token/:expireToken/:name" element={<Verify />} />
             <Route path='/cart' element={<Cart />} />
             <Route path='/checkout' element={state ? <Payment /> : <Navigate to='/login' />} />
+            <Route path='/search' element={<SearchProduct />} />
           </Routes>
         </Router>
       </div>
