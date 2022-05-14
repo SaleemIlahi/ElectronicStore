@@ -28,7 +28,7 @@ a{
     justify-content: space-evenly;
 }
 
-.product-btn button{
+.product-btn a button{
     display: block;
     width: 200px;
     height: 50px;
@@ -41,6 +41,6 @@ a{
     border: none;
 }
 
-.product-btn button:nth-child(2){
+.product-btn a:nth-child(2) button{
     background: var(--blue-color);
 }

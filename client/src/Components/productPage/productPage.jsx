@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom"
 import { Container, Col, Row } from "react-bootstrap"
 import Navbar from "../Navbar/Navbar.jsx";
 import Rows from "../Row/Row.jsx";
+import Footer from '../Footer/Footer.jsx';
 import "./page.css"
 import { cartContext } from '../../Context/CartContext.jsx'
 
@@ -12,6 +13,12 @@ const ProductPage = () => {
   const location = useLocation()
 
   const productDetail = location.state
+
+  let rupeeIndian = Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+  });
+
 
   const handleClick = (e) => {
     const imgURL = e.target.src
@@ -41,7 +48,11 @@ const ProductPage = () => {
                         Add to Cart
                       </button>
                     </Link>
-                    <button>Buy Now</button>
+                    <Link to="/shipping">
+                      <button>
+                        Buy Now
+                      </button>
+                    </Link>
                   </div>
                 </div>
               </Col>
@@ -55,7 +66,7 @@ const ProductPage = () => {
                       )
                     })
                   }
-                  <h6>M.R.P: {productDetail.price}</h6>
+                  <h6>{rupeeIndian.format(productDetail.price)}</h6>
 
                   <div className="border border-black spec">
                     <h4>Specfication</h4>
@@ -76,6 +87,7 @@ const ProductPage = () => {
         }
       </Container>
       {productDetail && <Rows title="Recommended" ctg={productDetail.category} skp={5} />}
+      <Footer />
     </>
   )
 }
