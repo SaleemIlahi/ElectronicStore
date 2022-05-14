@@ -1,6 +1,12 @@
 
+const dotenv = require('dotenv')
+
+// .env config
+dotenv.config({ path: 'server/config/config.env' })
+
 // This is your test secret API key.
-const stripe = require("stripe")('sk_test_51KnKE5SGvx4cn5WFyF39xdScpPO1gZvC9iaWTb8xKx3jA5NiDYhMQDi9ZyL8Rju0jzK6B4Pl13agzteel57UzDsr00ENQPZvvM');
+const stripe = require("stripe")(process.env.SECRET_KEY);
+
 
 // app.use(express.static("public"));
 // app.use(express.json());

@@ -63,6 +63,9 @@ const AppNavbar = () => {
                     <Button className='search-btn' onClick={handleSearch}>Search</Button>
                 </InputGroup>
                 <Nav>
+                    <Link to="/" className='btn-link btn-cart fw-bold text-decoration-none rounded d-flex justify-content-center align-items-center'>
+                        Home
+                    </Link>
                     {
                         state ?
                             <>

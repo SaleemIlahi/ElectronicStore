@@ -47,12 +47,8 @@ async function sendMails(user,req) {
         token: user.emailToken,
         expireToken,
         proto: req.protocol,
-        host: req.get("host")
+        host: req.headers.host !== 'localhost:8000' ? req.headers.host : 'localhost:3000'
     })
-
-    console.log(req.protocol)
-
-    console.log(req.get("host"))
 
     const mailOptions = {
         from: 'Electronic Store <process.env.USER>',

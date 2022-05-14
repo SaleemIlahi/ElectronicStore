@@ -12,11 +12,12 @@ const Verify = () => {
 
     useEffect(() => {
         const Api = async () => {
-            const verifyEmail = await fetch(`http://localhost:8000/api/v1/verify-email/${token}/${expireToken}`)
-    
+            const verifyEmail = await fetch(`/api/v1/verify-email/${token}/${expireToken}`)
             
             const response = await verifyEmail.json()
             setVerified(response)
+
+            console.log(response)
         }
     
         Api()
