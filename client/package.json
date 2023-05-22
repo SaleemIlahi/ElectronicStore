@@ -2,7 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:8000",
+  "proxy": "https://electronicstore.onrender.com",
   "dependencies": {
     "@stripe/react-stripe-js": "^1.7.1",
     "@stripe/stripe-js": "^1.27.0",
